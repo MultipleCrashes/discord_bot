@@ -42,6 +42,7 @@ async def google(ctx):
         print('Searching google for keyword : ', search_keyword)
         google_search_result = google_search_api(keyword=search_keyword)
         # persist search result
+        persist_to_db(value=search_keyword)
         # and return search result
         #print('dir channel', ctx.me)
     else:

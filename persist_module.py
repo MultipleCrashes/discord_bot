@@ -11,14 +11,16 @@ def get_db():
 def persist_to_db(table_name='search_table',
                   field_name='search_keyword',
                   value='keyword'):
-    create_table()
-    print('Saving data to database : ', value)
-    conn = get_db()
-    cur = conn.cursor()
-    sql = 'INSERT INTO ' + table_name + ' (' + field_name + ') values(?)'
-    cur.execute(sql, (value,))
-    conn.commit()
-
+    try:
+        create_table()
+        print('Saving data to database : ', value)
+        conn = get_db()
+        cur = conn.cursor()
+        sql = 'INSERT INTO ' + table_name + ' (' + field_name + ') values(?)'
+        cur.execute(sql, (value,))
+        conn.commit()
+    except Exception as e:
+        print('Persiting to db failed due to :', str(e))
 
 def get_all_row(table_name='search_table'):
     conn = get_db()
@@ -37,11 +39,11 @@ def create_table(table_name='search_table',
     try:
         conn = get_db()
         cur = conn.cursor()
-        create_table_search = 'CREATE TABLE ' + table_name + ' (' + field_name + ' TEXT)'
+        create_table_search = 'CREATE TABLE IF NOT EXISTS ' + table_name + ' (' + field_name + ' TEXT)'
         cur.execute(create_table_search)
         conn.close()
     except Exception as e:
-        print('Exception occured while creating table')
+        print('Exception occured while creating table', str(e))
         conn.close()
 
 

@@ -2,6 +2,7 @@ import re
 from persist_module import *
 
 def search_recent(keyword='game'):
+    print('-'*100)
     # get all search result and match regex
     query_result = get_all_row()
     match_result = []
