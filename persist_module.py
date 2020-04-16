@@ -1,17 +1,24 @@
 import sqlite3
+
 DATABASE = 'search.db'
+
 
 def get_db():
     db = sqlite3.connect(DATABASE)
     return db
 
-def persist_to_db(table_name='search_table',field_name='search_keyword', value='keyword'):
+
+def persist_to_db(table_name='search_table',
+                  field_name='search_keyword',
+                  value='keyword'):
+    create_table()
     print('Saving data to database : ', value)
     conn = get_db()
     cur = conn.cursor()
-    sql = 'INSERT INTO ' + table_name + ' (' + field_name+') values(?)'
+    sql = 'INSERT INTO ' + table_name + ' (' + field_name + ') values(?)'
     cur.execute(sql, (value,))
     conn.commit()
+
 
 def get_all_row(table_name='search_table'):
     conn = get_db()
@@ -23,13 +30,14 @@ def get_all_row(table_name='search_table'):
     print('DB Entries : ', query_result)
     return query_result
 
-def create_table(table_name = 'search_table',
-                 field_name = 'search_keyword'): # This can be made generic by making allowing multiple field name arg
+
+def create_table(table_name='search_table',
+                 field_name='search_keyword'):  # This can be made generic by making allowing multiple field name arg
     print('Application initialized, creating databases tables')
     try:
         conn = get_db()
         cur = conn.cursor()
-        create_table_search = 'CREATE TABLE ' + table_name +' (' + field_name +' TEXT)'
+        create_table_search = 'CREATE TABLE ' + table_name + ' (' + field_name + ' TEXT)'
         cur.execute(create_table_search)
         conn.close()
     except Exception as e:
@@ -38,6 +46,6 @@ def create_table(table_name = 'search_table',
 
 
 # Fist time create table
-create_table()
-persist_to_db(value='nodejs')
-get_all_row()
+#create_table()
+#persist_to_db(value='end game')
+#get_all_row()
