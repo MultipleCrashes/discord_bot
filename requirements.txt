@@ -3,3 +3,5 @@ gunicorn
 django-heroku
 requests
 flask
+discord.py
+python-dotenv
