@@ -5,3 +5,4 @@ requests
 flask
 discord.py
 python-dotenv
+google-api-python-client
